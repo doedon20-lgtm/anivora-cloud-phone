@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AniVora Cloud Phone</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0b0d12;
+            color: white;
+        }
+
+        header {
+            padding: 24px;
+            border-bottom: 1px solid #252936;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+        }
+
+        header p {
+            margin: 0;
+            color: #9ca3af;
+        }
+
+        main {
+            width: 100%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 24px;
+        }
+
+        .card {
+            background: #151821;
+            border: 1px solid #292d39;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: white;
+            color: black;
+            font-weight: 600;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        pre {
+            background: #07090d;
+            padding: 16px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin-top: 16px;
+            color: #d1d5db;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>AniVora Cloud Phone</h1>
+
+    <p>
+        Virtual Android cloud platform
+    </p>
+
+</header>
+
+<main>
+
+    <div class="card">
+
+        <h2>System Status</h2>
+
+        <button onclick="loadStatus()">
+            Check Status
+        </button>
+
+        <pre id="status">Waiting...</pre>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Devices</h2>
+
+        <button onclick="loadDevices()">
+            Load Devices
+        </button>
+
+        <pre id="devices">Waiting...</pre>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Android Layer</h2>
+
+        <button onclick="loadAndroid()">
+            Check Android Layer
+        </button>
+
+        <pre id="android">Waiting...</pre>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Network</h2>
+
+        <button onclick="loadNetwork()">
+            Check Network
+        </button>
+
+        <pre id="network">Waiting...</pre>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Storage</h2>
+
+        <button onclick="loadStorage()">
+            Check Storage
+        </button>
+
+        <pre id="storage">Waiting...</pre>
+
+    </div>
+
+</main>
+
+
+<script>
+
+async function getJSON(url) {
+
+    const response =
+        await fetch(url);
+
+    return await response.json();
+}
+
+
+async function loadStatus() {
+
+    const data =
+        await getJSON("/v1/status");
+
+    document.getElementById(
+        "status"
+    ).textContent =
+        JSON.stringify(
+            data,
+            null,
+            2
+        );
+}
+
+
+async function loadDevices() {
+
+    const data =
+        await getJSON("/v1/devices");
+
+    document.getElementById(
+        "devices"
+    ).textContent =
+        JSON.stringify(
+            data,
+            null,
+            2
+        );
+}
+
+
+async function loadAndroid() {
+
+    const data =
+        await getJSON(
+            "/v1/android/status"
+        );
+
+    document.getElementById(
+        "android"
+    ).textContent =
+        JSON.stringify(
+            data,
+            null,
+            2
+        );
+}
+
+
+async function loadNetwork() {
+
+    const data =
+        await getJSON(
+            "/v1/network/status"
+        );
+
+    document.getElementById(
+        "network"
+    ).textContent =
+        JSON.stringify(
+            data,
+            null,
+            2
+        );
+}
+
+
+async function loadStorage() {
+
+    const data =
+        await getJSON(
+            "/v1/storage/status"
+        );
+
+    document.getElementById(
+        "storage"
+    ).textContent =
+        JSON.stringify(
+            data,
+            null,
+            2
+        );
+}
+
+</script>
+
+</body>
+
+  </html>
